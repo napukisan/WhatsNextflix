@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">What\'s Ne(x)tfix?</string>
+
+    <!--Welcome String-->
+    <string name="welcome">"Welcome to What's Ne(x)tflix. "</string>
+
+    <!--Instructions string-->
+    <string name="instructions">Choosing the next show on Netflix is getting too hard? Answer the questions and I\'ll give a proper suggestion!" </string>
+    <!--Hint string for EditText-->
+    <string name="whats_your_name">Enter your name</string>
+    <!--Questions strings-->
+    <!--Question one-->
+    <string name="question_one">1. Which of the following are copywriters in MadMen?</string>
+    <string name="question_one_right_answer_text" translatable="false">Don Draper</string>
+    <string name="question_one_wrong_answer_text" translatable="false">Hannah Baker</string>
+    <string name="question_one_right_answer_two_text" translatable="false">Peggy Olson</string>
+
+    <!--Question two-->
+    <string name="question_two">2. Who are the main characters in Breaking Bad?</string>
+    <string name="question_two_wrong_answer_text" translatable="false">Penny Dreadful</string>
+    <string name="question_two_right_answer_text" translatable="false">Walter White</string>
+    <string name="question_two_right_answer_two_text" translatable="false">Jessie Pinkman</string>
+
+    <!--Question three-->
+    <string name="question_three">3. What\'s the name of the \"mother\" in Bates Motel?</string>
+    <string name="question_three_right_answer_text" translatable="false">Norma</string>
+    <string name="question_three_wrong_answer_text" translatable="false">Emma</string>
+    <string name="question_three_wrong_answer_two_text" translatable="false">Amanda</string>
+
+    <!--Question four-->
+    <string name="question_four">4. Which is the full name of the Sherlock Holmes assistant?</string>
+    <string name="question_four_hint">Name and Surname</string>
+    <string name="quiz_four_right_answer" translatable="false">John Watson</string>
+
+    <!--Question five-->
+    <string name="question_five">5. What\'s the name of the city where Pablo Escobar is born?</string>
+    <string name="question_five_hint">City</string>
+    <string name="quiz_five_right_answer" translatable="false">Medellin</string>
+
+    <!--Strings for the questions-->
+    <string name="preference_1">Genre:</string>
+    <string name="preference_2">Setting:</string>
+    <string name="preference_3" translatable="false">Mood:</string>
+    <string name="preference_4">Subject:</string>
+    <string name="question_answer_one">"Question 1: "</string>
+    <string name="question_answer_two">"Question 2: "</string>
+    <string name="question_answer_three">"Question 3: "</string>
+    <string name="question_answer_four">"Question 4: "</string>
+    <string name="question_answer_five">"Question 5: "</string>
+    <string name="correct">correct</string>
+    <string name="wrong">wrong</string>
+
+    <!--Strings for answers to question 1-->
+    <string name="genre_1">Action</string>
+    <string name="genre_2">Comedy</string>
+    <string name="genre_3" translatable="false">Thriller</string>
+
+    <!--Strings for answers to question 2-->
+    <string name="setting_1">Past</string>
+    <string name="setting_2">Present</string>
+    <string name="setting_3">Future</string>
+
+    <!--Strings for answers to question 3-->
+    <string name="mood_1">Adrenalinic</string>
+    <string name="mood_2">Relaxing</string>
+    <string name="mood_3">Intriguing</string>
+    <string name="mood_4">Amusing</string>
+
+    <!--Strings for answers to question 4-->
+    <string name="subject_1">Power</string>
+    <string name="subject_2">Youth</string>
+    <string name="subject_3">Justice</string>
+    <string name="subject_4">Love e Friendship</string>
+
+    <!--Strings for toast message-->
+    <string name="quiz_done_message_one">Right! You got\ </string>
+    <string name="quiz_done_message_two">\ point</string>
+    <string name="quiz_done_message_three">\ points</string>
+    <!--String for submit button-->
+    <string name="submit_answers">Submit</string>
+    <string name="start_quiz">start quiz</string>
+    <string name="done_button">Done</string>
+    <string name="logo" translatable="false">LOGO</string>
+    <string name="well_done_message">Very well done, </string>
+    <string name="well_done_message_2">! Now make your choice and get the show:</string>
+
+    <!--ImageViews content descriptions-->
+    <string name="poster_view" translatable="false">poster view</string>
+
+    <!--String for movie title-->
+    <string name="final_string_message_one">Good,\ </string>
+    <string name="final_string_message_two">! Let\'s try with: \n</string>
+
+    <!--reset button string-->
+    <string name="reset_button">back to preferences</string>
+
+    <!--credits on splashscreen-->
+    <string name="credits" translatable="false">by FraNappi</string>
+</resources>
