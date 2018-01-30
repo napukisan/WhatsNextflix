@@ -278,9 +278,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:columnCount="2"
             android:rowCount="5"
-            android:visibility="gone"   >
+            android:visibility="gone">
 
             <!--Well Done view-->
             <TextView
@@ -535,6 +536,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
                 android:layout_marginTop="40dp"
                 android:layout_row="4"
                 android:onClick="onPreferenceSubmitButtonClick"
@@ -547,6 +549,7 @@
             android:id="@+id/suggestion_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -574,14 +577,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:contentDescription="@string/poster_view"
-                android:src="@drawable/a_series_of_unfortunate_events" />
+                android:contentDescription="@string/poster_view" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
                 android:onClick="onResetButtonClick"
                 android:text="@string/reset_button" />
         </LinearLayout>

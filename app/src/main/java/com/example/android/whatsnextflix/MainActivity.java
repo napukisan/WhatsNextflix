@@ -29,18 +29,58 @@ public class MainActivity extends AppCompatActivity {
     boolean quizFour = false;
     boolean quizFive = false;
 
+    private static final String KEY_INFO_VIEW_VISIBILITY_ = "infoViewVisibility";
+    private static final String KEY_QUIZ_VIEW_VISIBILITY_ = "quizViewVisibility";
+    private static final String KEY_PREFERENCE_VIEW_VISIBILITY_ = "preferenceViewVisibility";
+    private static final String KEY_SUGGESTION_VIEW_VISIBILITY_ = "suggestionViewVisibility";
+
+    LinearLayout infoViewGroup;
+    LinearLayout quizViewGroup;
+    GridLayout preferenceViewGroup;
+    LinearLayout suggestionViewGroup;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        infoViewGroup = findViewById(R.id.info_view);
+        quizViewGroup = findViewById(R.id.quiz_view_group);
+        preferenceViewGroup = findViewById(R.id.preference_view_group);
+        suggestionViewGroup = findViewById(R.id.suggestion_view);
     }
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        if (infoViewGroup != null) {
+            savedInstanceState.putInt(KEY_INFO_VIEW_VISIBILITY_, infoViewGroup.getVisibility());
+        }
+        if (quizViewGroup != null) {
+            savedInstanceState.putInt(KEY_QUIZ_VIEW_VISIBILITY_, quizViewGroup.getVisibility());
+        }
+        if (preferenceViewGroup != null) {
+            savedInstanceState.putInt(KEY_PREFERENCE_VIEW_VISIBILITY_, preferenceViewGroup.getVisibility());
+        }
+        if (suggestionViewGroup != null) {
+            savedInstanceState.putInt(KEY_SUGGESTION_VIEW_VISIBILITY_, suggestionViewGroup.getVisibility());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        infoViewGroup.setVisibility(savedInstanceState.getInt(KEY_INFO_VIEW_VISIBILITY_, infoViewGroup.getVisibility()));
+        quizViewGroup.setVisibility(savedInstanceState.getInt(KEY_QUIZ_VIEW_VISIBILITY_, quizViewGroup.getVisibility()));
+        preferenceViewGroup.setVisibility(savedInstanceState.getInt(KEY_PREFERENCE_VIEW_VISIBILITY_, preferenceViewGroup.getVisibility()));
+        suggestionViewGroup.setVisibility(savedInstanceState.getInt(KEY_SUGGESTION_VIEW_VISIBILITY_, suggestionViewGroup.getVisibility()));
+    }
 
     /**
      * Method for the click event on RadioGroup 1
      */
-
     public void onGenreButtonClick(View view) {
         // is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -165,23 +205,23 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view is the Start Quiz button view
      */
-
     public void onStartQuizButtonClick(View view) {
-        LinearLayout infoView = findViewById(R.id.info_view);
-        LinearLayout quizViewGroup = findViewById(R.id.quiz_view_group);
         EditText nameField = findViewById(R.id.name_field);
         String name = nameField.getText().toString();
 
         if (name.matches("")) {
             Toast.makeText(this, "Please, enter you name.", Toast.LENGTH_LONG).show();
         } else {
-            infoView.setVisibility(View.GONE);
+            infoViewGroup.setVisibility(View.GONE);
             quizViewGroup.setVisibility(View.VISIBLE);
-            isInfoViewVisible = false;
-            isQuizViewVisible = true;
         }
     }
 
+    /**
+     * Method to create the final message with the suggestion
+     *
+     * @return string
+     */
     private String createQuizDoneMessage() {
         EditText nameField = findViewById(R.id.name_field);
         String name = nameField.getText().toString();
@@ -270,16 +310,14 @@ public class MainActivity extends AppCompatActivity {
         return quizScore;
     }
 
-
     /**
      * Method that create a toast message with the results of the quiz
      *
      * @param view is the button
      */
     public void onQuizSubmitButtonClick(View view) {
-        GridLayout preferenceViewGroup = findViewById(R.id.preference_view_group);
-        int quizScore = calculateQuizScore();
 
+        int quizScore = calculateQuizScore();
         TextView wellDoneTextView = findViewById(R.id.well_done_text);
         wellDoneTextView.setText(createQuizDoneMessage());
 
@@ -317,11 +355,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Toast.makeText(this, pointMessage + QuestionsReport, Toast.LENGTH_LONG).show();
-            LinearLayout quizViewGroup = findViewById(R.id.quiz_view_group);
             quizViewGroup.setVisibility(View.GONE);
             preferenceViewGroup.setVisibility(View.VISIBLE);
-            isQuizViewVisible = false;
-            isPreferenceViewVisible = true;
         }
     }
 
@@ -339,22 +374,16 @@ public class MainActivity extends AppCompatActivity {
 
         String movieName = "";
         String error_message = "Please, make a choice for any field.";
-
-        GridLayout preference_view_group = findViewById(R.id.preference_view_group);
         ImageView poster = findViewById(R.id.poster_image_view);
-        LinearLayout suggestionView = findViewById(R.id.suggestion_view);
 
         if (genreNumber == 0 || settingNumber == 0 || moodNumber == 0 || subjectNumber == 0) {
             Toast.makeText(this, error_message, Toast.LENGTH_LONG).show();
 
         } else {
-            preference_view_group.setVisibility(View.GONE);
-            suggestionView.setVisibility(View.VISIBLE);
-            suggestionView.animate().translationY(0);
-            isPreferenceViewVisible = false;
-            isSuggestionViewVisible = true;
-            if (suggestedMovie == 1111) {
+            preferenceViewGroup.setVisibility(View.GONE);
+            suggestionViewGroup.setVisibility(View.VISIBLE);
 
+            if (suggestedMovie == 1111) {
                 poster.setImageResource(R.drawable.vikings);
                 movieName = "Vikings";
             }
