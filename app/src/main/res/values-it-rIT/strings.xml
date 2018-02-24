@@ -27,7 +27,7 @@
     <string name="start_quiz">Inizia il quiz</string>
     <string name="done_button">Fatto</string>
     <string name="well_done_message">Molto bene, </string>
-    <string name="well_done_message_2">! Ora esprimi le tue preferenze e goditi lo spettacolo!</string>
+    <string name="well_done_message_2">!\nOra esprimi le tue preferenze e goditi lo spettacolo!</string>
     <string name="final_string_message_one">"Bene, "</string>
     <string name="final_string_message_two">! Prova a guardare:</string>
     <string name="reset_button">Torna alle preferenze</string>

@@ -1,8 +1,7 @@
 package com.example.android.whatsnextflix;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -17,17 +16,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    //create global variables to get the result of each question stored in variable
-    int suggestedMovie = 0;
-    int genreNumber = 0;
-    int settingNumber = 0;
-    int moodNumber = 0;
-    int subjectNumber = 0;
-    boolean quizOne = false;
-    boolean quizTwo = false;
-    boolean quizThree = false;
-    boolean quizFour = false;
-    boolean quizFive = false;
+    private int genreNumber;
+    private int settingNumber;
+    private int moodNumber;
+    private int subjectNumber;
+    private int questionThree;
+    private boolean quizOne = false;
+    private boolean quizTwo = false;
+    private boolean quizThree = false;
+    private boolean quizFour = false;
+    private boolean quizFive = false;
 
     private static final String KEY_INFO_VIEW_VISIBILITY_ = "infoViewVisibility";
     private static final String KEY_QUIZ_VIEW_VISIBILITY_ = "quizViewVisibility";
@@ -38,20 +36,60 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout quizViewGroup;
     GridLayout preferenceViewGroup;
     LinearLayout suggestionViewGroup;
-
+    TextView wellDoneTextView;
+    EditText nameField;
+    CheckBox quizOneRightAnswer;
+    CheckBox quizOneWrongAnswer;
+    CheckBox quizOneRightAnswerTwo;
+    CheckBox quizTwoRightAnswer;
+    CheckBox quizTwoRightAnswerTwo;
+    CheckBox quizTwoWrongAnswer;
+    RadioGroup quizThreeRadioGroup;
+    EditText quizFourEditText;
+    EditText quizFiveEditText;
+    ImageView poster;
+    TextView final_suggestion_message;
+    TextView title_suggestion;
+    RadioGroup genre;
+    RadioGroup setting;
+    RadioGroup mood;
+    RadioGroup subject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
         infoViewGroup = findViewById(R.id.info_view);
         quizViewGroup = findViewById(R.id.quiz_view_group);
         preferenceViewGroup = findViewById(R.id.preference_view_group);
         suggestionViewGroup = findViewById(R.id.suggestion_view);
+        wellDoneTextView = findViewById(R.id.well_done_text);
+        nameField = findViewById(R.id.name_field);
+        quizOneRightAnswer = findViewById(R.id.question_one_right_answer_check_box);
+        quizOneWrongAnswer = findViewById(R.id.question_one_wrong_answer_check_box);
+        quizOneRightAnswerTwo = findViewById(R.id.question_one_right_answer_two_check_box);
+        quizTwoRightAnswer = findViewById(R.id.question_two_right_answer_check_box);
+        quizTwoRightAnswerTwo = findViewById(R.id.question_two_right_answer_two_check_box);
+        quizTwoWrongAnswer = findViewById(R.id.question_two_wrong_answer_check_box);
+        quizThreeRadioGroup = findViewById(R.id.quiz_view_3);
+        quizFourEditText = findViewById(R.id.question_four_edit_text);
+        quizFiveEditText = findViewById(R.id.question_five_edit_text);
+        poster = findViewById(R.id.poster_image_view);
+        final_suggestion_message = findViewById(R.id.final_message_text_view);
+        title_suggestion = findViewById(R.id.title_text_view);
+        genre = findViewById(R.id.genre_preference_group);
+        setting = findViewById(R.id.setting_preference_group);
+        mood = findViewById(R.id.mood_preference_group);
+        subject = findViewById(R.id.subject_preference_group);
+        preferenceViewGroup = findViewById(R.id.preference_view_group);
     }
 
-
+    /**
+     * Methods to save and restore app state when screen rotates
+     * @param savedInstanceState is used to collect info
+     */
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -206,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view is the Start Quiz button view
      */
     public void onStartQuizButtonClick(View view) {
-        EditText nameField = findViewById(R.id.name_field);
         String name = nameField.getText().toString();
 
         if (name.matches("")) {
@@ -218,12 +255,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Method for the click event on Question 3 RadioGroup
+     */
+    public void onQuizThreeClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        //check which radio button was clicked
+
+        switch (view.getId()) {
+            case R.id.question_three_right_answer_radio:
+                if (checked)
+                    questionThree = 1;
+                break;
+
+            case R.id.question_three_wrong_answer_radio:
+                if (checked)
+                    questionThree = 0;
+                break;
+
+            case R.id.question_three_wrong_answer_two_radio:
+                if (checked)
+                    questionThree = 0;
+                break;
+
+        }
+    }
+
+    /**
      * Method to create the final message with the suggestion
      *
      * @return string
      */
     private String createQuizDoneMessage() {
-        EditText nameField = findViewById(R.id.name_field);
         String name = nameField.getText().toString();
         String wellDoneText = getString(R.string.well_done_message);
         wellDoneText += " " + name;
@@ -238,52 +302,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private int calculateQuizScore() {
 
-        CheckBox quizOneRightAnswer = findViewById(R.id.question_one_right_answer_check_box);
         boolean questionOneIsRight = quizOneRightAnswer.isChecked();
-
-        CheckBox quizOneWrongAnswer = findViewById(R.id.question_one_wrong_answer_check_box);
         boolean questionOneIsWrong = quizOneWrongAnswer.isChecked();
-
-        CheckBox quizOneRightAnswerTwo = findViewById(R.id.question_one_right_answer_two_check_box);
         boolean questionOneIsRightTwo = quizOneRightAnswerTwo.isChecked();
-
-        CheckBox quizTwoRightAnswer = findViewById(R.id.question_two_right_answer_check_box);
         boolean questionTwoIsRight = quizTwoRightAnswer.isChecked();
-
-        CheckBox quizTwoRightAnswerTwo = findViewById(R.id.question_two_right_answer_two_check_box);
         boolean questionTwoIsRightTwo = quizTwoRightAnswerTwo.isChecked();
-
-        CheckBox quizTwoWrongAnswer = findViewById(R.id.question_two_wrong_answer_check_box);
         boolean questionTwoIsWrong = quizTwoWrongAnswer.isChecked();
 
-        CheckBox quizThreeRightAnswer = findViewById(R.id.question_three_right_answer_check_box);
-        boolean questionThreeIsRight = quizThreeRightAnswer.isChecked();
-
-        CheckBox quizThreeWrongAnswer = findViewById(R.id.question_three_wrong_answer_check_box);
-        boolean questionThreeIsWrong = quizThreeWrongAnswer.isChecked();
-
-        CheckBox quizThreeWrongAnswerTwo = findViewById(R.id.question_three_wrong_answer_two_check_box);
-        boolean questionThreeIsWrongTwo = quizThreeWrongAnswerTwo.isChecked();
-
         int quizScore = 0;
-
-        EditText quizFourEditText = findViewById(R.id.question_four_edit_text);
         String quizFourAnswer = quizFourEditText.getText().toString();
-
-        EditText quizFiveEditText = findViewById(R.id.question_five_edit_text);
         String quizFiveAnswer = quizFiveEditText.getText().toString();
-
-        Log.v("MainActivity", "quiz one answer one:" + questionOneIsRight);
-        Log.v("MainActivity", "quiz one answer two:" + questionOneIsWrong);
-        Log.v("MainActivity", "quiz one answer three:" + questionOneIsRightTwo);
-        Log.v("MainActivity", "quiz two answer one:" + questionTwoIsRight);
-        Log.v("MainActivity", "quiz two answer two:" + questionTwoIsRightTwo);
-        Log.v("MainActivity", "quiz two answer three:" + questionTwoIsWrong);
-        Log.v("MainActivity", "quiz three answer one:" + questionThreeIsWrong);
-        Log.v("MainActivity", "quiz three answer two:" + questionThreeIsRight);
-        Log.v("MainActivity", "quiz three answer three:" + questionThreeIsWrongTwo);
-        Log.v("MainActivity", "quiz four answer:" + quizFourAnswer);
-        Log.v("MainActivity", "quiz five answer:" + quizFiveAnswer);
 
 
         if (questionOneIsRight && questionOneIsRightTwo && !questionOneIsWrong) {
@@ -295,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
             quizScore += 1;
             quizTwo = true;
         }
-        if (questionThreeIsRight && !questionThreeIsWrong && !questionThreeIsWrongTwo) {
+        if (questionThree > 0) {
             quizScore += 1;
             quizThree = true;
         }
@@ -318,42 +346,43 @@ public class MainActivity extends AppCompatActivity {
     public void onQuizSubmitButtonClick(View view) {
 
         int quizScore = calculateQuizScore();
-        TextView wellDoneTextView = findViewById(R.id.well_done_text);
         wellDoneTextView.setText(createQuizDoneMessage());
 
-        if (quizScore == 0) {
-            Toast.makeText(this, "Whhooops! Wrong answers. Try again!", Toast.LENGTH_LONG).show();
-        } else {
-            String pointMessage = getText(R.string.quiz_done_message_one).toString();
-            pointMessage += quizScore;
-            pointMessage += getText(R.string.quiz_done_message_three).toString();
-            String QuestionsReport = "";
-            if (quizOne) {
-                QuestionsReport += "\n\n" + getString(R.string.question_answer_one) + getString(R.string.correct);
-            } else {
-                QuestionsReport += "\n" + getString(R.string.question_answer_one) + getString(R.string.wrong);
-            }
-            if (quizTwo) {
-                QuestionsReport += "\n" + getString(R.string.question_answer_two) + getString(R.string.correct);
-            } else {
-                QuestionsReport += "\n" + getString(R.string.question_answer_two) + getString(R.string.wrong);
-            }
-            if (quizThree) {
-                QuestionsReport += "\n" + getString(R.string.question_answer_three) + getString(R.string.correct);
-            } else {
-                QuestionsReport += "\n" + getString(R.string.question_answer_three) + getString(R.string.wrong);
-            }
-            if (quizFour) {
-                QuestionsReport += "\n" + getString(R.string.question_answer_four) + getString(R.string.correct);
-            } else {
-                QuestionsReport += "\n" + getString(R.string.question_answer_four) + getString(R.string.wrong);
-            }
-            if (quizFive) {
-                QuestionsReport += "\n" + getString(R.string.question_answer_five) + getString(R.string.correct);
-            } else {
-                QuestionsReport += "\n" + getString(R.string.question_answer_five) + getString(R.string.wrong);
-            }
+        String pointMessage = getText(R.string.quiz_done_message_one).toString();
+        pointMessage += quizScore;
+        pointMessage += getText(R.string.quiz_done_message_three).toString();
+        String QuestionsReport = "";
 
+        if (quizOne) {
+            QuestionsReport += "\n\n" + getString(R.string.question_answer_one) + getString(R.string.correct);
+        } else {
+            QuestionsReport += "\n" + getString(R.string.question_answer_one) + getString(R.string.wrong);
+        }
+        if (quizTwo) {
+            QuestionsReport += "\n" + getString(R.string.question_answer_two) + getString(R.string.correct);
+        } else {
+            QuestionsReport += "\n" + getString(R.string.question_answer_two) + getString(R.string.wrong);
+        }
+        if (quizThree) {
+            QuestionsReport += "\n" + getString(R.string.question_answer_three) + getString(R.string.correct);
+        } else {
+            QuestionsReport += "\n" + getString(R.string.question_answer_three) + getString(R.string.wrong);
+        }
+        if (quizFour) {
+            QuestionsReport += "\n" + getString(R.string.question_answer_four) + getString(R.string.correct);
+        } else {
+            QuestionsReport += "\n" + getString(R.string.question_answer_four) + getString(R.string.wrong);
+        }
+        if (quizFive) {
+            QuestionsReport += "\n" + getString(R.string.question_answer_five) + getString(R.string.correct);
+        } else {
+            QuestionsReport += "\n" + getString(R.string.question_answer_five) + getString(R.string.wrong);
+        }
+        if (quizScore == 0) {
+            Toast.makeText(this, "Whhooops! Wrong answers. Try again!" + QuestionsReport, Toast.LENGTH_LONG).show();
+            quizViewGroup.setVisibility(View.GONE);
+            preferenceViewGroup.setVisibility(View.VISIBLE);
+        } else {
             Toast.makeText(this, pointMessage + QuestionsReport, Toast.LENGTH_LONG).show();
             quizViewGroup.setVisibility(View.GONE);
             preferenceViewGroup.setVisibility(View.VISIBLE);
@@ -369,12 +398,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Creates a message for every combination of the selected preferences
 
-        suggestedMovie = (genreNumber * 1000) + (settingNumber * 100) + (moodNumber * 10) + subjectNumber;
-        Log.v("MainActivity", "number is" + suggestedMovie);
+        int suggestedMovie = (genreNumber * 1000) + (settingNumber * 100) + (moodNumber * 10) + subjectNumber;
 
         String movieName = "";
         String error_message = "Please, make a choice for any field.";
-        ImageView poster = findViewById(R.id.poster_image_view);
+
 
         if (genreNumber == 0 || settingNumber == 0 || moodNumber == 0 || subjectNumber == 0) {
             Toast.makeText(this, error_message, Toast.LENGTH_LONG).show();
@@ -952,14 +980,11 @@ public class MainActivity extends AppCompatActivity {
                 movieName = "Santa Clarita Diet";
             }
         }
-        EditText nameField = findViewById(R.id.name_field);
         String name = nameField.getText().toString();
 
-        TextView final_suggestion_message = findViewById(R.id.final_message_text_view);
         String finalMessage = getString(R.string.final_string_message_one) + name + getString(R.string.final_string_message_two);
         final_suggestion_message.setText(finalMessage);
 
-        TextView title_suggestion = findViewById(R.id.title_text_view);
         String titleMessage = movieName;
         title_suggestion.setText(titleMessage);
     }
@@ -970,22 +995,11 @@ public class MainActivity extends AppCompatActivity {
      * @param view is the button
      */
     public void onResetButtonClick(View view) {
-        RadioGroup genre = findViewById(R.id.genre_preference_group);
         genre.clearCheck();
-
-        RadioGroup setting = findViewById(R.id.setting_preference_group);
         setting.clearCheck();
-
-        RadioGroup mood = findViewById(R.id.mood_preference_group);
         mood.clearCheck();
-
-        RadioGroup subject = findViewById(R.id.subject_preference_group);
         subject.clearCheck();
-
-        LinearLayout suggestionView = findViewById(R.id.suggestion_view);
-        suggestionView.setVisibility(View.GONE);
-
-        GridLayout preferenceViewGroup = findViewById(R.id.preference_view_group);
+        suggestionViewGroup.setVisibility(View.GONE);
         preferenceViewGroup.setVisibility(View.VISIBLE);
     }
 }

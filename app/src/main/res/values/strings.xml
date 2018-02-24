@@ -82,7 +82,7 @@
     <string name="done_button">Done</string>
     <string name="logo" translatable="false">LOGO</string>
     <string name="well_done_message">Very well done, </string>
-    <string name="well_done_message_2">! Now make your choice and get the show:</string>
+    <string name="well_done_message_2">!\nNow make your choice and get the show:</string>
 
     <!--ImageViews content descriptions-->
     <string name="poster_view" translatable="false">poster view</string>
